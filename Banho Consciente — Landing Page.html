@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Banho Consciente — Sistema Semáforo Hídrico</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ciano:#01BAEF;--azul:#0B4F6C;--verde:#20BF55;--verde2:#2ECC71;--amarelo:#F4D03F;--verm:#E5533D;--grafite:#2B3A42;--suave:#F2F8FA;--branco:#fff;--tx:#2B3A42;--bg:#fff;--card:#fff;--linha:#DDEAF0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tx:#E4EEF2;--bg:#0C1A21;--card:#12262F;--suave:#0F212A;--linha:#1F3A46}}
+:root[data-theme="dark"]{--tx:#E4EEF2;--bg:#0C1A21;--card:#12262F;--suave:#0F212A;--linha:#1F3A46}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+h1,h2,h3{line-height:1.15;margin:0 0 .6em;letter-spacing:-.02em}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0 0 1em;max-width:62ch}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+section{padding:88px 0}
+.alt{background:var(--suave)}
+.lead{font-size:1.1rem;opacity:.85}
+.btn{display:inline-block;padding:14px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;font:inherit;font-weight:700;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px}
+.btn-p{background:var(--verde);color:#06240F}
+.btn-s{border-color:currentColor;background:transparent}
+header{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(11,79,108,.92);backdrop-filter:blur(8px);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-weight:800;text-decoration:none;display:flex;align-items:center;gap:10px}
+.drop{width:18px;height:24px;background:linear-gradient(160deg,var(--ciano),var(--verde));border-radius:50% 50% 50% 50%/65% 65% 35% 35%}
+nav a{margin-left:22px;text-decoration:none;font-size:.95rem;opacity:.9}
+nav a:hover{opacity:1}
+@media(max-width:760px){nav a:not(.keep){display:none}}
+/* hero */
+.hero{background:radial-gradient(1200px 600px at 75% 40%,#14759c 0%,var(--azul) 55%,#08394f 100%);color:#fff;padding:140px 0 96px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800}
+.hero .lead{color:#E3F5FB}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.scene{position:relative;height:420px;display:flex;justify-content:center}
+.pipe{position:absolute;top:0;width:18px;height:90px;background:linear-gradient(90deg,#9fb6c0,#e8f1f4,#9fb6c0);border-radius:0 0 4px 4px}
+.head{position:absolute;top:82px;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6fbfd,#b9cdd6 70%);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.ring{position:absolute;inset:-14px;border-radius:50%;border:12px solid var(--verde);box-shadow:0 0 28px var(--verde),inset 0 0 18px var(--verde);animation:semaforo 9s infinite}
+.holes{position:absolute;inset:34px;border-radius:50%;background:radial-gradient(circle,#6f8794 22%,transparent 23%) 0 0/22px 22px}
+.drops{position:absolute;top:310px;width:150px;height:110px;background:repeating-linear-gradient(100deg,rgba(255,255,255,.55) 0 2px,transparent 2px 14px);mask:linear-gradient(#000,transparent);-webkit-mask:linear-gradient(#000,transparent);animation:fall 1.2s linear infinite}
+@keyframes semaforo{0%,38%{border-color:var(--verde);box-shadow:0 0 28px var(--verde),inset 0 0 18px var(--verde)}
+40%,72%{border-color:var(--amarelo);box-shadow:0 0 28px var(--amarelo),inset 0 0 18px var(--amarelo)}
+74%,100%{border-color:var(--verm);box-shadow:0 0 28px var(--verm),inset 0 0 18px var(--verm)}}
+@keyframes fall{to{background-position:0 28px}}
+.tag{position:absolute;bottom:0;font-size:.8rem;opacity:.8}
+.badge{display:inline-block;margin-top:22px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.12);font-size:.85rem}
+/* cards */
+.grid{display:grid;gap:20px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g5{grid-template-columns:repeat(5,1fr)}
+.card{background:var(--card);border:1px solid var(--linha);border-radius:20px;padding:26px}
+.light{width:44px;height:44px;border-radius:50%;margin-bottom:16px}
+.l-g{background:var(--verde);box-shadow:0 0 18px var(--verde)}
+.l-y{background:var(--amarelo);box-shadow:0 0 18px var(--amarelo)}
+.l-r{background:var(--verm);box-shadow:0 0 18px var(--verm)}
+.problem{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:44px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.chip{padding:8px 16px;border-radius:999px;background:var(--card);border:1px solid var(--linha);font-weight:600;font-size:.92rem}
+.note{font-size:.85rem;opacity:.7;margin-top:14px}
+/* phone */
+.eco{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.phone{width:260px;margin:0 auto;background:#0b1a21;border-radius:38px;padding:12px;box-shadow:0 24px 50px rgba(11,79,108,.35)}
+.screen{background:linear-gradient(#fff,#EAF6FA);border-radius:28px;padding:22px 16px;color:#16313c;min-height:470px}
+.screen small{opacity:.65}
+.big{font-size:2.3rem;font-weight:800;color:var(--azul);line-height:1}
+.bar{height:10px;border-radius:9px;background:#d4e6ed;margin:6px 0 14px;overflow:hidden}
+.bar i{display:block;height:100%;width:78%;background:linear-gradient(90deg,var(--ciano),var(--verde))}
+.mini{display:flex;gap:8px;margin:10px 0}
+.mini span{flex:1;background:#fff;border-radius:12px;padding:8px;font-size:.72rem;text-align:center;border:1px solid #d4e6ed}
+.mini b{display:block;font-size:1rem;color:var(--azul)}
+.stripe{display:flex;gap:5px;margin:8px 0 14px}
+.stripe i{flex:1;height:26px;border-radius:7px;background:var(--verde)}
+.stripe i.y{background:var(--amarelo)}
+.stripe i.r{background:var(--verm)}
+.benefits{display:grid;gap:14px}
+.ben{display:flex;gap:14px;padding:16px 18px}
+.ben svg{flex:none;width:30px;height:30px;stroke:var(--ciano);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ben p{margin:0;font-size:.95rem}
+/* selo */
+.tier{text-align:center;position:relative;padding-top:34px}
+.medal{width:78px;height:78px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;font-weight:800;color:#2a1a05;border:5px solid rgba(255,255,255,.55)}
+.bronze{background:linear-gradient(145deg,#E0A878,#B87333)}
+.prata{background:linear-gradient(145deg,#F2F5F7,#A9B4BC)}
+.ouro{background:linear-gradient(145deg,#FBE38A,#D4A017)}
+.tier h3{margin-bottom:2px}
+.tier .for{font-weight:700;color:var(--azul);margin-bottom:12px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tier .for{color:var(--ciano)}}
+.tier p{font-size:.93rem;margin-left:auto;margin-right:auto}
+/* audience */
+.aud h3{display:flex;align-items:center;gap:10px}
+.aud ul{padding-left:20px;margin:0}
+.aud li{margin-bottom:8px}
+.ods{display:flex;gap:18px;margin-top:28px;align-items:center;flex-wrap:wrap}
+.ods div{padding:14px 18px;border-radius:16px;color:#fff;font-weight:700;max-width:300px}
+.o6{background:#26BDE2}.o12{background:#BF8B2E}
+/* final */
+.final{background:linear-gradient(135deg,var(--azul),#0f6a8f 60%,#14876a);color:#fff;text-align:center}
+.final p{margin-left:auto;margin-right:auto}
+.final .cta-row{justify-content:center}
+form{max-width:520px;margin:44px auto 0;text-align:left;background:rgba(255,255,255,.1);border-radius:20px;padding:24px;display:none}
+form.open{display:block}
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+input,textarea,select{width:100%;padding:12px 14px;border-radius:12px;border:0;font:inherit;color:#16313c}
+footer{background:#08394f;color:#cfe6ee;padding:44px 0 32px;font-size:.92rem}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer a{margin-right:18px;text-decoration:none}
+footer p{max-width:44ch}
+@media(max-width:900px){.hero .wrap,.problem,.eco,.g2,.g3{grid-template-columns:1fr}.g5{grid-template-columns:1fr}section{padding:64px 0}.scene{height:380px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="#topo"><span class="drop"></span>Banho Consciente</a>
+  <nav><a href="#como">Como funciona</a><a href="#app">Aplicativo</a><a href="#selo">Selo</a><a href="#publico">Para quem</a><a class="keep" href="#contato">Contato</a></nav>
+</div></header>
+
+<main id="topo">
+<section class="hero"><div class="wrap">
+  <div>
+    <h1>Seu banho pode fazer a diferença.</h1>
+    <p class="lead">Transformamos o consumo invisível de água em consciência, incentivando hábitos mais sustentáveis por meio da tecnologia.</p>
+    <p>O Sistema Semáforo Hídrico é um dispositivo de chuveiro com anel de LED que muda de cor conforme o tempo de banho, como um semáforo.</p>
+    <div class="cta-row"><a class="btn btn-p" href="#como">Ver como funciona</a><a class="btn btn-s" href="#selo">Conhecer o Selo</a></div>
+    <span class="badge">Proposta de inovação em fase de planejamento</span>
+  </div>
+  <div class="scene" role="img" aria-label="Representação conceitual de um chuveiro com anel de LED que alterna entre verde, amarelo e vermelho">
+    <div class="pipe"></div><div class="head"><div class="ring"></div><div class="holes"></div></div><div class="drops"></div>
+    <span class="tag">Ilustração conceitual do dispositivo</span>
+  </div>
+</div></section>
+
+<section id="como"><div class="wrap">
+  <div class="problem">
+    <div>
+      <h2>Quem toma banho raramente percebe quanta água usa.</h2>
+    </div>
+    <div>
+      <p class="lead">Durante o banho, as pessoas nem sempre notam quanto tempo ficam no chuveiro ou quanta água consomem. O chuveiro responde, segundo estimativas do planejamento, por cerca de 25% a 35% do consumo de água de uma residência.</p>
+      <p>O Semáforo Hídrico é um <em>nudge</em>: um empurrão sutil, baseado em Economia Comportamental, que mostra o consumo em tempo real e preserva a liberdade de escolha. Estudos de feedback visual em tempo real, como o de Tiefenbeck et al. (2018), relataram reduções de até 22% no consumo.</p>
+    </div>
+  </div>
+  <div class="grid g3">
+    <div class="card"><div class="light l-g"></div><h3>Verde</h3><p>O banho está dentro da meta recomendada.</p></div>
+    <div class="card"><div class="light l-y"></div><h3>Amarelo</h3><p>Atenção: o limite estabelecido está próximo.</p></div>
+    <div class="card"><div class="light l-r"></div><h3>Vermelho</h3><p>O limite configurado foi ultrapassado.</p></div>
+  </div>
+  <h3 style="margin-top:44px">Tecnologia prevista no projeto</h3>
+  <div class="chips"><span class="chip">Sensores de vazão</span><span class="chip">Microturbinas hidrodinâmicas autoalimentadas</span><span class="chip">Bluetooth Low Energy (BLE)</span><span class="chip">Aplicativo iOS e Android</span></div>
+  <p class="note">Componentes descritos no planejamento. Ainda não há especificações técnicas finais nem resultados de testes do produto.</p>
+</div></section>
+
+<section id="app" class="alt"><div class="wrap eco">
+  <div class="phone" role="img" aria-label="Mockup ilustrativo do aplicativo Banho Consciente"><div class="screen">
+    <small>Olá! Resumo do mês</small>
+    <div class="big">— L</div><small>água economizada (dado ilustrativo)</small>
+    <div style="margin-top:14px;font-size:.8rem">Meta de banhos na faixa verde</div>
+    <div class="bar"><i></i></div>
+    <div class="stripe" aria-hidden="true"><i></i><i></i><i class="y"></i><i></i><i></i><i class="r"></i><i></i></div>
+    <div class="mini"><span><b>5 dias</b>sequência</span><span><b>120</b>pontos</span><span><b>3</b>badges</span></div>
+    <div style="font-size:.72rem;opacity:.6;margin-top:18px">Interface conceitual. Valores ilustrativos.</div>
+  </div></div>
+  <div>
+    <h2>O aplicativo completa o dispositivo.</h2>
+    <p class="lead">Acompanhe consumo e água economizada, defina metas, cumpra desafios e sequências de conquistas, participe de rankings opcionais e troque pontos por recompensas de marcas parceiras, que ainda serão definidas.</p>
+    <div class="benefits">
+      <div class="card ben"><svg viewBox="0 0 24 24"><path d="M12 2s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg><p><b>Economia.</b> Menos desperdício e potencial de reduzir despesas com água e energia.</p></div>
+      <div class="card ben"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><p><b>Consciência.</b> Feedback visual que facilita entender os hábitos de consumo.</p></div>
+      <div class="card ben"><svg viewBox="0 0 24 24"><path d="M5 19c8 0 14-5 14-14-9 0-14 5-14 14zM5 19c2-5 5-8 9-10"/></svg><p><b>Sustentabilidade.</b> Indicadores de água economizada e de impacto ambiental.</p></div>
+      <div class="card ben"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><p><b>Engajamento.</b> Metas, conquistas e recompensas para manter o hábito.</p></div>
+      <div class="card ben"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-3 5 3-1.5-7.5"/></svg><p><b>Reconhecimento.</b> Valoriza práticas sustentáveis de pessoas, famílias e organizações.</p></div>
+    </div>
+    <p class="note">Estimativa do planejamento: economia de R$ 40 a R$ 80 por mês para uma família de três pessoas. Não é garantia de resultado.</p>
+  </div>
+</div></section>
+
+<section id="selo"><div class="wrap">
+  <h2>Selo Banho Consciente</h2>
+  <p class="lead">Uma proposta de certificação de eficiência hídrica e comportamento sustentável. Reconhece hábitos por critérios mensuráveis, com acompanhamento e validação dos indicadores de cada nível.</p>
+  <div class="grid g3" style="margin-top:32px">
+    <div class="card tier"><div class="medal bronze">B</div><h3>Bronze</h3><div class="for">Usuário Consciente</div><p>Banhos na faixa verde em pelo menos 80% dos dias do mês, com dados validados pelo aplicativo.</p></div>
+    <div class="card tier"><div class="medal prata">P</div><h3>Prata</h3><div class="for">Família Sustentável</div><p>Todos os membros cadastrados com 80% de banhos verdes e redução comprovada de pelo menos 15% na fatura de água.</p></div>
+    <div class="card tier"><div class="medal ouro">O</div><h3>Ouro</h3><div class="for">Condomínio Sustentável</div><p>Mais de 70% das unidades aderentes e média inferior a 6 minutos por banho. Prevê placa física para a portaria.</p></div>
+  </div>
+  <p style="margin-top:28px">Aplicável a residências, condomínios, hotéis, academias e outros estabelecimentos. A certificação é digital e contínua: se os indicadores caírem por dois meses seguidos, o selo entra em carência e pode ser suspenso.</p>
+  <p class="note">Nenhum selo foi concedido até o momento. Os critérios são os previstos no planejamento.</p>
+</div></section>
+
+<section id="publico" class="alt"><div class="wrap">
+  <h2>Para quem é o Banho Consciente.</h2>
+  <div class="grid g2 aud" style="margin-top:28px">
+    <div class="card"><h3>Para consumidores</h3><ul><li>Mais consciência sobre o consumo de água</li><li>Incentivo à redução do desperdício</li><li>Possibilidade de economia nas despesas domésticas</li><li>Metas, acompanhamento e recompensas</li></ul></div>
+    <div class="card"><h3>Para empresas e organizações</h3><ul><li>Incentivo à eficiência hídrica</li><li>Acompanhamento de indicadores de consumo</li><li>Potencial de redução de despesas operacionais</li><li>Diferenciação por iniciativas de sustentabilidade</li><li>Participação no programa de certificação</li></ul></div>
+  </div>
+  <p style="margin-top:28px">Públicos estratégicos previstos: <b>condomínios, administradoras, construtoras, hotéis, academias e concessionárias de saneamento.</b></p>
+  <h3 style="margin-top:36px">Compromisso ambiental</h3>
+  <p>O projeto se alinha à Agenda 2030 da ONU e à Política Nacional de Recursos Hídricos (Lei 9.433/1997).</p>
+  <div class="ods"><div class="o6">ODS 6<br><span style="font-weight:500">Água potável e saneamento</span></div><div class="o12">ODS 12<br><span style="font-weight:500">Consumo e produção responsáveis</span></div></div>
+</div></section>
+
+<section id="contato" class="final"><div class="wrap">
+  <h2>Pequenas mudanças podem gerar grandes impactos.</h2>
+  <p class="lead">Conheça o Banho Consciente e descubra como a tecnologia pode incentivar uma relação mais responsável com a água.</p>
+  <div class="cta-row"><button class="btn btn-p" data-t="Quero conhecer o projeto">Quero conhecer o projeto</button><button class="btn btn-s" data-t="Tenho interesse em parceria" style="color:#fff">Tenho interesse em parceria</button></div>
+  <form id="f">
+    <label for="n">Nome</label><input id="n" required>
+    <label for="e">E-mail</label><input id="e" type="email" required>
+    <label for="a">Assunto</label><select id="a"><option>Quero conhecer o projeto</option><option>Tenho interesse em parceria</option></select>
+    <label for="m">Mensagem</label><textarea id="m" rows="3"></textarea>
+    <p id="msg" style="margin:14px 0 0;font-size:.9rem"></p>
+    <button class="btn btn-p" style="margin-top:14px" type="submit">Enviar mensagem</button>
+  </form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div><b style="color:#fff">Banho Consciente</b><p>Projeto acadêmico de marketing e sustentabilidade: nudge visual, aplicativo e certificação para a economia de água no banho.</p></div>
+  <div><a href="#como">Como funciona</a><a href="#app">Aplicativo</a><a href="#selo">Selo</a><a href="#publico">Para quem</a><a href="#contato">Contato</a></div>
+</div></footer>
+
+<script>
+(function(){
+  // Troque pelo e-mail do grupo antes de divulgar. Enquanto vazio, o envio fica desativado.
+  var CONTACT_EMAIL = "";
+  var f=document.getElementById("f"), a=document.getElementById("a"), msg=document.getElementById("msg");
+  document.querySelectorAll("[data-t]").forEach(function(b){
+    b.addEventListener("click",function(){f.classList.add("open");a.value=b.dataset.t;document.getElementById("n").focus();f.scrollIntoView({behavior:"smooth",block:"center"});});
+  });
+  f.addEventListener("submit",function(ev){
+    ev.preventDefault();
+    if(!CONTACT_EMAIL){msg.textContent="O canal de contato ainda não foi configurado pelo grupo.";return;}
+    var body=encodeURIComponent("Nome: "+f.n.value+"\nE-mail: "+f.e.value+"\n\n"+f.m.value);
+    window.location.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent(a.value)+"&body="+body;
+  });
+})();
+</script>
+</body>
+</html>
